@@ -16,6 +16,9 @@
 git clone https://github.com/tkachev-artem/hw-docker.git
 cd hw-docker
 
+# Остановка всех контейнеров перед запуском
+docker kill $(docker ps -q)
+
 # Сборка и запуск
 docker build -t swagger-demo .
 docker run -p 3000:3000 -d swagger-demo
@@ -27,11 +30,15 @@ docker stop swagger-demo
 ### Запуск через Docker Compose
 
 ```bash
+# Остановка всех контейнеров перед запуском
+docker kill $(docker ps -q)
+
 # Запуск
 docker-compose up -d
 
 # Остановка
 docker-compose down
+
 ```
 
 ## Развертывание на сервере
