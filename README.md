@@ -2,6 +2,32 @@
 
 Простое демонстрационное API с документацией Swagger UI в Docker-контейнере.
 
+## Быстрый старт (одной командой)
+
+```bash
+rm -rf hw-docker && git clone https://github.com/tkachev-artem/hw-docker.git && cd hw-docker && docker kill $(docker ps -q 2>/dev/null) 2>/dev/null || true && docker system prune -af --volumes --force && docker build -t swagger-demo . && docker run --name swagger-demo -p 3000:3000 -d swagger-demo
+```
+
+После запуска:
+- API: http://localhost:3000
+- Swagger UI: http://localhost:3000/api-docs
+
+## Остановка (одной командой)
+
+```bash
+docker stop swagger-demo 2>/dev/null || docker kill swagger-demo 2>/dev/null || docker kill $(docker ps -q) 2>/dev/null || true && docker system prune -af --volumes --force
+```
+
+## Проверка работы
+
+```bash
+# Статус контейнера
+docker ps | grep swagger-demo
+
+# Логи контейнера
+docker logs swagger-demo
+```
+
 ## Локальный запуск
 
 ### Предварительные требования
