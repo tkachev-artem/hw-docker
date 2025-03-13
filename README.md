@@ -38,21 +38,8 @@ docker ps | grep swagger-demo
 ### Остановка
 
 ```bash
-# Остановка контейнера
-docker stop swagger-demo 2>/dev/null || docker kill swagger-demo 2>/dev/null
-
-# Очистка системы
-docker system prune -af --volumes --force
-```
-
-### Проверка работы
-
-```bash
-# Статус контейнера
-docker ps | grep swagger-demo
-
-# Логи контейнера
-docker logs swagger-demo
+# Остановка контейнера swagger-demo
+docker stop swagger-demo
 ```
 
 ### Доступ
