@@ -2,23 +2,50 @@
 
 Простое демонстрационное API с документацией Swagger UI в Docker-контейнере.
 
-## Быстрый старт (одной командой)
+## Локальный запуск
+
+### Предварительные требования
+
+- Установленный Docker
+- Git
+
+### Пошаговый запуск
 
 ```bash
-rm -rf hw-docker && git clone https://github.com/tkachev-artem/hw-docker.git && cd hw-docker && docker kill $(docker ps -q 2>/dev/null) 2>/dev/null || true && docker system prune -af --volumes --force && docker build -t swagger-demo . && docker run --name swagger-demo -p 3000:3000 -d swagger-demo
+# Удаление старой версии проекта (если есть)
+rm -rf hw-docker
+
+# Клонирование проекта
+git clone https://github.com/tkachev-artem/hw-docker.git
+cd hw-docker
+
+# Остановка всех запущенных контейнеров
+docker kill $(docker ps -q 2>/dev/null) 2>/dev/null || true
+
+# Очистка системы от старых контейнеров и образов
+docker system prune -af --volumes --force
+
+# Сборка образа
+docker build -t swagger-demo .
+
+# Запуск контейнера
+docker run --name swagger-demo -p 3000:3000 -d swagger-demo
+
+# Проверка статуса
+docker ps | grep swagger-demo
 ```
 
-После запуска:
-- API: http://localhost:3000
-- Swagger UI: http://localhost:3000/api-docs
-
-## Остановка (одной командой)
+### Остановка
 
 ```bash
-docker stop swagger-demo 2>/dev/null || docker kill swagger-demo 2>/dev/null || docker kill $(docker ps -q) 2>/dev/null || true && docker system prune -af --volumes --force
+# Остановка контейнера
+docker stop swagger-demo 2>/dev/null || docker kill swagger-demo 2>/dev/null
+
+# Очистка системы
+docker system prune -af --volumes --force
 ```
 
-## Проверка работы
+### Проверка работы
 
 ```bash
 # Статус контейнера
@@ -28,44 +55,9 @@ docker ps | grep swagger-demo
 docker logs swagger-demo
 ```
 
-## Локальный запуск
-
-### Предварительные требования
-
-- Установленный Docker
-- Git
-
-### Запуск через Docker
-
-```bash
-# Клонирование проекта
-git clone https://github.com/tkachev-artem/hw-docker.git
-cd hw-docker
-
-# Остановка всех контейнеров перед запуском
-docker kill $(docker ps -q)
-
-# Сборка и запуск
-docker build -t swagger-demo .
-docker run -p 3000:3000 -d swagger-demo
-
-# Остановка
-docker stop swagger-demo
-```
-
-### Запуск через Docker Compose
-
-```bash
-# Остановка всех контейнеров перед запуском
-docker kill $(docker ps -q)
-
-# Запуск
-docker-compose up -d
-
-# Остановка
-docker-compose down
-
-```
+### Доступ
+- API: http://localhost:3000
+- Swagger UI: http://localhost:3000/api-docs
 
 ## Развертывание на сервере
 
@@ -92,10 +84,6 @@ docker ps
 ```
 
 ## Доступ
-
-### Локально
-- API: http://localhost:3000
-- Swagger UI: http://localhost:3000/api-docs
 
 ### На сервере
 - API: http://31.130.151.110:3000
